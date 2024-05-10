@@ -4,27 +4,43 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Image Processing</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="../static/style.css">
 </head>
 <body>
+    <!-- <h1>Image Processing Tool</h1> -->
+    <div class="glitch-wrapper">
+        <div class="glitch" data-glitch="Image Compression Using AI">Image Compression Using AI</div>
+     </div>
     <div class="container">
-        <h1>Image Processing Tool</h1>
+       
         <form action="/" method="post" enctype="multipart/form-data">
-            <input type="file" name="image" required>
-            <select name="operation">
+            <input type="file" id="imageUpload" name="image" required>
+            <label for="imageUpload">Upload Image</label>
+            <select class="select" name="operation">
                 <option value="compress">Image Compression</option>
                 <option value="reduce_noise">Noise Reduction</option>
                 <option value="sharpen">Sharpen Image</option>
                 
                 <option value="segment">Image Segmentation</option>
             </select>
-            <select name="level">
+            <select class="select" name="level">
                 <option value="low">Low</option>
                 <option value="medium">Medium</option>
                 <option value="high">High</option>
             </select>
-            <button type="submit">Process Image</button>
+            <button class="btn" type="submit">Process Image</button>
         </form>
+        <img id="preview" src="#" alt="Image Preview" style="display: none;">
     </div>
 </body>
+<script>
+    document.getElementById('imageUpload').addEventListener('change', function(e) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            document.getElementById('preview').src = e.target.result;
+            document.getElementById('preview').style.display = 'block';
+        };
+        reader.readAsDataURL(e.target.files[0]);
+    });
+</script>
 </html>
